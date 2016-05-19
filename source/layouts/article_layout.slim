@@ -1,0 +1,26 @@
+doctype html
+html
+  = partial 'partials/html_head'
+  body
+    = partial 'partials/header'
+    .container
+      .row
+        #main.col-md-9 role="main"
+          h1= current_page.data.title
+          = yield
+          - if older_article || newer_article
+            ul.pager
+              - if older_article
+                li.previous
+                  a href=older_article.url
+                    | <<
+                    '
+                    = older_article.title
+              - if newer_article
+                li.next
+                  a href=newer_article.url
+                    = newer_article.title
+                    '
+                    | >>
+        = partial 'partials/aside'
+    = partial 'partials/footer'

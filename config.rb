@@ -19,6 +19,20 @@ page '/*.txt', layout: false
 ###
 # Helpers
 ###
+helpers do
+  def ja
+    data.ja
+  end
+
+  def older_article
+    current_article&.previous_article
+  end
+
+  def newer_article
+    current_article&.next_article
+  end
+end
+
 
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
@@ -27,8 +41,10 @@ activate :blog do |blog|
   # blog.permalink = "{year}/{month}/{day}/{title}.html"
   # Matcher for blog source files
   # blog.sources = "{year}-{month}-{day}-{title}.html"
+  blog.sources = "articles/{year}-{month}-{day}-{title}.html"
   # blog.taglink = "tags/{tag}.html"
   # blog.layout = "layout"
+  blog.layout = "article_layout"
   # blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
@@ -36,27 +52,18 @@ activate :blog do |blog|
   # blog.day_link = "{year}/{month}/{day}.html"
   # blog.default_extension = ".markdown"
 
-  blog.tag_template = "tag.html"
-  blog.calendar_template = "calendar.html"
+  # blog.tag_template = "tag.html"
+  # blog.calendar_template = "calendar.html"
 
   # Enable pagination
   # blog.paginate = true
-  # blog.per_page = 10
-  # blog.page_link = "page/{num}"
+  blog.paginate = true
+  blog.per_page = 10
+  blog.page_link = "page/{num}"
 end
 
 page "/feed.xml", layout: false
-# Reload the browser automatically whenever files change
-# configure :development do
-#   activate :livereload
-# end
-
-# Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+page "/archives.html"
 
 # Build-specific configuration
 configure :build do
@@ -66,3 +73,10 @@ configure :build do
   # Minify Javascript on build
   # activate :minify_javascript
 end
+
+# Markdown settings
+set :markdown_engine, :redcarpet
+set :markdown, hard_wrap: true
+
+ignore "articles/.keep"
+ignore "partials/*"

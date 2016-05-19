@@ -1,0 +1,8 @@
+aside.col-md-3
+  .panel.panel-default
+    .panel-heading
+      = ja.recent_articles
+    .list-group
+      - blog.articles.take(10).each do |article|
+        a.list-group-item href=article.url
+          = article.title

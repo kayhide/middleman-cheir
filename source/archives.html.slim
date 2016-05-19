@@ -1,0 +1,22 @@
+---
+title: サイトマップ
+pageable: true
+per_page: 20
+---
+.page-header
+  h1= current_page.data.title
+
+ul
+  - page_articles.each_with_index do |article, i|
+    li= link_to article.title, article
+
+- if paginate
+  ul.pager
+    - if prev_page
+      li.previous= link_to '<<', prev_page
+    - else
+      li.previous.disabled= link_to '<<', prev_page
+    - if next_page
+      li.next= link_to '>>', next_page
+    - else
+      li.next.disabled= link_to '>>', next_page

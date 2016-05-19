@@ -1,0 +1,11 @@
+doctype html
+html
+  = partial 'partials/html_head'
+  body
+    = partial 'partials/header'
+    .container
+      .row
+        #main.col-md-9 role="main"
+          = yield
+        = partial 'partials/aside'
+    = partial 'partials/footer'
