@@ -80,3 +80,6 @@ set :markdown, hard_wrap: true
 
 ignore "articles/.keep"
 ignore "partials/*"
+
+site_setting = YAML.load_file "data/site.yml"
+Time.zone = site_setting['timezone']
